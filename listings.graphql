@@ -21,6 +21,9 @@ type Query {
       numOfBeds
       costPerNight
       closedForBookings
+      amenities {
+      id
+      }
       """
     )
 
@@ -36,6 +39,11 @@ type Query {
       numOfBeds
       costPerNight
       closedForBookings
+      amenities {
+        id
+        name
+        category
+      }
       """
     )
 }
@@ -51,18 +59,26 @@ type Listing {
   costPerNight: Float
   "Indicates whether listing is closed for bookings (on hiatus)"
   closedForBookings: Boolean
-  # EXERCISE: LISTING AMENITIES
-  # "The amenities available for this listing"
-  # amenities: [Amenity!]!
+  "The amenities available for this listing"
+  amenities: [Amenity!]!
+    @connect(
+      source: "listings"
+      http: { GET: "/listings/{$this.id}/amenities" }
+      selection: """
+      id
+      name
+      category
+      """
+    )
 }
 
-# type Amenity {
-#   id: ID!
-#   "The amenity category the amenity belongs to"
-#   category: String!
-#   "The amenity's name"
-#   name: String!
-# }
+type Amenity {
+  id: ID!
+  "The amenity category the amenity belongs to"
+  category: String!
+  "The amenity's name"
+  name: String!
+}
 
 # EXERCISE: MUTATIONS
 # input CreateListingInput {

@@ -81,17 +81,41 @@ type Amenity {
 }
 
 # EXERCISE: MUTATIONS
-# input CreateListingInput {
-#   title: String!
-#   numOfBeds: Int
-#   costPerNight: Float
-#   closedForBookings: Boolean
-# }
+input CreateListingInput {
+  title: String!
+  numOfBeds: Int
+  costPerNight: Float
+  closedForBookings: Boolean
+}
 
-# type CreateListingResponse {
-#   listing: Listing
-# }
+type Mutation {
+  createListing(input: CreateListingInput!): CreateListingResponse
+    @connect(
+      source: "listings"
+      http: {
+        POST: "listings"
+        body: """
+        listing:
+          $args.input {
+            title
+            numOfBeds
+            costPerNight
+            closedForBookings
+          }
+        """
+      }
+      selection: """
+      listing: {
+      id
+      title
+      numOfBeds
+      costPerNight
+      closedForBookings
+      }
+      """
+    )
+}
 
-# type Mutation {
-#   createListing(input: CreateListingInput!): CreateListingResponse
-# }
+type CreateListingResponse {
+  listing: Listing
+}

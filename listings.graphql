@@ -12,6 +12,17 @@ extend schema
 type Query {
   "A curated array of listings to feature on the homepage"
   featuredListings: [Listing!]!
+    @connect(
+      source: "listings"
+      http: { GET: "featured-listings" }
+      selection: """
+      id
+      title
+      numOfBeds
+      costPerNight
+      closedForBookings
+      """
+    )
 
   # EXERCISE: LISTING DETAILS
   # "A specific listing"

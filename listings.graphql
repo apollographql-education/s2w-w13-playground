@@ -26,6 +26,14 @@ type Listing {
   # amenities: [Amenity!]!
 }
 
+# type Amenity {
+#   id: ID!
+#   "The amenity category the amenity belongs to"
+#   category: String!
+#   "The amenity's name"
+#   name: String!
+# }
+
 # EXERCISE: MUTATIONS
 # input CreateListingInput {
 #   title: String!

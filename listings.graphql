@@ -24,9 +24,20 @@ type Query {
       """
     )
 
-  # # EXERCISE: LISTING DETAILS
-  # "A specific listing"
-  # listing(id: ID!): Listing
+  # EXERCISE: LISTING DETAILS
+  "A specific listing"
+  listing(id: ID!): Listing
+    @connect(
+      source: "v1"
+      http: { GET: "listings/{$args.id}" }
+      selection: """
+      id
+      title
+      numOfBeds
+      costPerNight
+      closed: closedForBookings
+      """
+    )
 }
 
 "A particular intergalactic location available for booking"

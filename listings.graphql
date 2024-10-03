@@ -51,19 +51,28 @@ type Listing {
   costPerNight: Float
   "Indicates whether listing is closed for bookings (on hiatus)"
   closed: Boolean
-  # # EXERCISE: LISTING AMENITIES
-  # "The amenities available for this listing"
-  # amenities: [Amenity!]!
+  # EXERCISE: LISTING AMENITIES
+  "The amenities available for this listing"
+  amenities: [Amenity!]!
+    @connect(
+      source: "v1"
+      http: { GET: "/listings/{$this.id}/amenities" }
+      selection: """
+      id
+      name
+      category
+      """
+    )
 }
 
-# # EXERCISE: LISTING AMENITIES
-# type Amenity {
-#   id: ID!
-#   "The amenity category the amenity belongs to"
-#   category: String!
-#   "The amenity's name"
-#   name: String!
-# }
+# EXERCISE: LISTING AMENITIES
+type Amenity {
+  id: ID!
+  "The amenity category the amenity belongs to"
+  category: String!
+  "The amenity's name"
+  name: String!
+}
 
 # # EXERCISE: MUTATIONS
 # input CreateListingInput {

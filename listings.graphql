@@ -1,9 +1,28 @@
 extend schema
   @link(url: "https://specs.apollo.dev/federation/v2.10", import: ["@key"])
+  @link(
+    url: "https://specs.apollo.dev/connect/v0.1"
+    import: ["@connect", "@source"]
+  )
+  @source(
+    name: "v1"
+    http: { baseURL: "https://rt-airlock-services-listing.herokuapp.com" }
+  )
 
 type Query {
   "A curated array of listings to feature on the homepage"
   featuredListings: [Listing!]!
+    @connect(
+      source: "v1"
+      http: { GET: "/featured-listings" }
+      selection: """
+      id
+      title
+      numOfBeds
+      costPerNight
+      closed: closedForBookings
+      """
+    )
 
   # # EXERCISE: LISTING DETAILS
   # "A specific listing"

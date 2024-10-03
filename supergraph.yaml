@@ -1,6 +1,10 @@
 federation_version: =2.10.0-preview.0
 subgraphs:
-  listings:
+  users:
     routing_url: http://ignored
+    schema:
+      file: users.graphql
+  listings:
+    routing_url: http://ignored # this value is ignored
     schema:
       file: listings.graphql

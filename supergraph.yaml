@@ -4,3 +4,7 @@ subgraphs:
     routing_url: http://ignored
     schema:
       file: users.graphql
+  listings:
+    routing_url: http://ignored # this value is ignored
+    schema:
+      file: listings.graphql

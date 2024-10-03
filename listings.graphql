@@ -21,6 +21,9 @@ type Query {
       numOfBeds
       costPerNight
       closed: closedForBookings
+      amenities {
+        id
+      }
       """
     )
 
@@ -36,6 +39,11 @@ type Query {
       numOfBeds
       costPerNight
       closed: closedForBookings
+      amenities {
+        id
+        name
+        category
+      }
       """
     )
 }
